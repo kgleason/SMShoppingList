@@ -35,12 +35,12 @@ class ListItem(db.Model):
     
     @property
     def creator(self):
-        p = Person.query.filter(Person.id == self.created_by)
+        p = Person.query.filter(Person.id == self.created_by).first()
         return p.display_name
         
     @property
     def created_in_words(self):
-        return time_ago_in_words(created)
+        return time_ago_in_words(self.created)
         
     @classmethod
     def all(cls):
