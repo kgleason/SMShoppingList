@@ -2,6 +2,8 @@ import os
 from flask import render_template, request
 from app import app
 from models import *
+from sms import process_sms
+import twilio.twiml
 
 @app.route('/')
 def index():
@@ -25,4 +27,11 @@ def person(id):
     
 @app.route('/sms', methods=['GET', 'POST'])
 def sms():
-    pass
+    if request.method == "POST":
+        message = process_sms(r=request)
+    else:
+        message = "Sorry, but HTTP {0} is not currently allowed.".format(request.method)
+    
+    resp = twilio.twiml.Response()
+    resp.message(message)
+    return str(resp)
