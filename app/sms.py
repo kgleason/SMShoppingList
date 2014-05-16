@@ -25,7 +25,7 @@ def process_sms(r):
         li = ListItem(list_item = text, created_by = person.id)
         db.session.add(li)
         db.session.commit()
-        return "Added \"{0}\" to the list"
+        return "Added \"{0}\" to the list".format(text)
         
 def invite_new_user(person, txt):
     p = Person(firstname = txt[0], lastname = txt[1], mobile = "+1{0}".format(txt[2]))
