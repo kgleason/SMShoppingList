@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<h3>List Item History for {{ person.display_name }}</h3>
+	<hr/>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Purchased yet</th>
+				<th>Added to list</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for item in history %}
+			<tr>
+				<th>${{ item.list_item }}</th>
+				<th>{{ item.closed }}</th>
+				<th>{{ item.created_in_words }}</th>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
