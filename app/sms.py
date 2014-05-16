@@ -30,7 +30,13 @@ def process_sms(r):
 def invite_new_user(person, txt):
     fname = txt[0]
     lname = txt[1]
-    mbl = "+1{0}".format(txt[2])
+    mbl = re.sub(r"[^\w\s]",'',s)
+    
+    if list(mbl)[0] == "1":
+        mbl = "+{0}".format(mbl)
+    elif len(mbl) == 10 and re.match('[2-9]',list(mbl)[0]):
+        mbl = "+1{0}".format(mbl)
+    
     p = Person.query.filter(Person.mobile == mbl).first()
     if not p:
         p = Person(firstname = fname, lastname = lname, mobile = mbl)
