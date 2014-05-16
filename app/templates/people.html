@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<h3>People</h3>
+	<hr/>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Mobile</th>
+				<th>Firstname</th>
+				<th>Lastname</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for person in people %}
+			<tr>
+				<th>{{ person.mobile }}</th>
+				<th><a href="{{ url_for('person', id=person.id) }}">{{ person.firstname }}</a></th>
+				<th><a href="{{ url_for('person', id=person.id) }}">{{ person.lastname }}</a></th>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
