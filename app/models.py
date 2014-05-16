@@ -44,10 +44,10 @@ class ListItem(db.Model):
         
     @classmethod
     def all(cls):
-        return ListItem.query.order_by(desc(id)).all()
+        return ListItem.query.order_by(desc(ListItem.id)).all()
         
     @classmethod
     def all_open(cls):
-        return ListItem.query.filter(ListItem.closed == False).order_by(desc(id)).all()
+        return ListItem.query.filter(ListItem.closed == False).order_by(desc(ListItem.id)).all()
         
         
