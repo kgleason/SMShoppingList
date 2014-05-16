@@ -20,6 +20,6 @@ def person(id):
     p = Person.query.filter(Person.id == id).first()
     return render_template('person.html', person=p)
     
-@app.route('/sms' methods=['GET', 'POST'])
+@app.route('/sms', methods=['GET', 'POST'])
 def sms():
     pass
