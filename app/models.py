@@ -1,5 +1,5 @@
 from app import db
-from sqlalchemy import db
+from sqlalchemy import desc
 import datetime
 from webhelpers.date import time_ago_in_words
 
