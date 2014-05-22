@@ -3,8 +3,9 @@
 	<h3>The List</h3>
 	<hr/>
 {% if not my_list %}
-	The list appears to be empty	
+	The list appears to be empty
 {% else %}
+<script type='text/javascript' src="{{ url_for('static', filename='js/removeListItem.js') }}"></script>
 	<table class="table">
 		<thead>
 			<tr>
@@ -17,7 +18,7 @@
 		<tbody>
 		{% for i in my_list %}
 			<tr>
-				<td><input type="checkbox" name="{{ i.id }}" value="{{ i.purchased }}"/></td>
+				<td><input type="checkbox" name="{{ i.id }}" id="checkbox{{ i.id }}" value="{{ i.purchased }}"/></td>
 				<td>{{ i.list_item }}</td>
 				<td>{{ i.creator }}</td>
 				<td>{{ i.created_in_words }} ago</td>
@@ -25,6 +26,6 @@
 		{% endfor %}
 		</tbody>
 	</table>
-	
+
 {% endif %}
 {% endblock %}
