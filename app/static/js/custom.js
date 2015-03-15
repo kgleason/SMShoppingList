@@ -2,14 +2,8 @@ $(document).ready(function(){
 
     // check the number of rows in the table. If it is more than 1, then show the table
     // otherwise hide it.
-
     var $rowCount = $('#itemsTable tr').length;
-    console.log($rowCount > 1);
-    if ($rowCount <= 1){
-      $('#itemsTable').hide();
-    } else {
-      $('#itemsTable').show();
-    }
+    $('#itemsTable').toggle($rowCount > 1);
 
     var socket = io.connect();
 
@@ -27,8 +21,6 @@ $(document).ready(function(){
 
     socket.on('update checkbox', function(msg) {
       $('input#'+msg.who).prop("checked",(msg.data));
-      //var itemNumber = $('input#'+msg.who).attr("name");
-      //$.post("/listitem/" + itemNumber);
     });
 
     socket.on('insert row', function(msg) {
@@ -42,7 +34,7 @@ $(document).ready(function(){
         <td>' + data.created + '</td></tr>';
       $('#itemsTable TBODY').append($html);
       $('#itemsTable').show();
-      $('p.emptyList').hide();
+      $('#emptyList').hide();
     });
 
     socket.on('connect_error', function() {
