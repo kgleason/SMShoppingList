@@ -2,8 +2,9 @@ $(document).ready(function(){
 
     // check the number of rows in the table. If it is more than 1, then show the table
     // otherwise hide it.
-    var $rowCount = $('#itemsTable tr').length;
-    $('#itemsTable').toggle($rowCount > 1);
+    hideShowIndex($('#itemsTable tr').length);
+    //var $rowCount = $('#itemsTable tr').length;
+    //$('#itemsTable').toggle($rowCount > 1);
 
     var socket = io.connect();
 
@@ -33,8 +34,9 @@ $(document).ready(function(){
         <td>' + data.creator + '</td>\
         <td>' + data.created + '</td></tr>';
       $('#itemsTable TBODY').append($html);
-      $('#itemsTable').show();
-      $('#emptyList').hide();
+      //$('#itemsTable').show();
+      //$('#emptyList').hide();
+      hideShowIndex($('#itemsTable tr').length);
     });
 
     socket.on('connect_error', function() {
@@ -42,4 +44,13 @@ $(document).ready(function(){
       location.reload("True");
     });
 
+    $('#btnClearList').click(function() {
+      console.log("btnClearList was clicked");
+    });
 });
+
+function hideShowIndex(rc) {
+  $('#itemsTable').toggle(rc > 1);
+  $('#btnClearList').toggle(rc > 1);
+  $('#emptyList').toggle(rc <= 1);
+}

@@ -19,7 +19,6 @@
 {% if not my_list %}
 		<p id="emptyList" name="emptyList">The list appears to be empty</p>
 {% else %}
-<!--<script type='text/javascript' src="{{ url_for('static', filename='js/removeListItem.js') }}"></script>-->
 		{% for i in my_list %}
 			<tr>
 				<td><input type="checkbox" class="sync" name="{{ i.id }}" id="checkbox{{ i.id }}" value="{{ i.purchased }}"/></td>
@@ -31,5 +30,6 @@
 {% endif %}
 </tbody>
 </table>
-
+</br>
+<button type="button" name="btnClearList" id="btnClearList">Clear Checked Items</button>
 {% endblock %}
