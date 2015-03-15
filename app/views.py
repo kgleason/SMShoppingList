@@ -53,3 +53,8 @@ def value_changed(message):
     print(message)
     #values[message['who']] = message['data']
     emit('update value', message, broadcast=True)
+
+@socketio.on('checkbox changed')
+def checkbox_changed(message):
+    print(message)
+    emit('update checkbox', message, broadcast=True)
