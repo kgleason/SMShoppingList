@@ -1,6 +1,6 @@
 from app import db
 from sqlalchemy import desc
-import datetime
+import datetime, re
 from webhelpers.date import time_ago_in_words
 
 class Person(db.Model):
@@ -21,7 +21,7 @@ class Person(db.Model):
     @property
     def display_name(self):
         if self.firstname:
-            return "{0} {1}".format(self.firstname, self.lastname)
+            return self.firstname
         else:
             return self.mobile
 
@@ -40,7 +40,7 @@ class ListItem(db.Model):
 
     @property
     def created_in_words(self):
-        return time_ago_in_words(self.created)
+        return time_ago_in_words(self.created, granularity="minute")
 
     @classmethod
     def all(cls):
