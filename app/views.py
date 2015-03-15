@@ -1,9 +1,10 @@
 import os
 from flask import render_template, request
-from app import app
+from app import app, socketio
 from models import *
 from sms import process_sms
 import twilio.twiml
+from flask.ext.socketio import emit
 
 @app.route('/')
 def index():
@@ -46,3 +47,9 @@ def sms():
     resp = twilio.twiml.Response()
     resp.message(message)
     return str(resp)
+
+@socketio.on('value changed')
+def value_changed(message):
+    print(message)
+    #values[message['who']] = message['data']
+    emit('update value', message, broadcast=True)
