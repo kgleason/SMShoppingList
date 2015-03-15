@@ -5,7 +5,7 @@ from models import *
 from sms import process_sms
 import twilio.twiml
 from flask.ext.socketio import emit
-import json
+import json, re
 
 @app.route('/')
 def index():
@@ -27,17 +27,6 @@ def person(id):
         h = ListItem.query.filter(ListItem.created_by == p.id).order_by(desc(ListItem.id)).limit(50)
     return render_template('person.html', person=p, history=h)
 
-@app.route('/listitem/<int:id>', methods=['GET', 'POST'])
-def completeListItem(id):
-  if request.method == 'POST':
-    li = ListItem.query.filter(ListItem.id == id).first()
-    if li:
-      li.closed = True
-      db.session.add(li)
-      db.session.commit()
-
-  return render_template('index.html', my_list=ListItem.all_open())
-
 @app.route('/sms', methods=['GET', 'POST'])
 def sms():
     if request.method == "POST":
@@ -58,8 +47,18 @@ def value_changed(message):
 @socketio.on('checkbox changed')
 def checkbox_changed(message):
     print(message)
+    update_item_status(message)
     emit('update checkbox', message, broadcast=True)
 
 def insert_row(message):
     print(json.dumps(message))
     socketio.emit('insert row', json.dumps(message))
+
+def update_item_status(data):
+    id = re.match('.*?([0-9]+)$', data['who']).group(1)
+    print('Changing closed status of {0} to {1}'.format(id, data['data']))
+    li = ListItem.query.filter(ListItem.id == id).first()
+    if li:
+        li.closed = data['data']
+        db.session.add(li)
+        db.session.commit()
