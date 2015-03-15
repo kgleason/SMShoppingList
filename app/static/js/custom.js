@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     // check the number of rows in the table. If it is more than 1, then show the table
     // otherwise hide it.
+    // This passes the number of rows to the hideShowIndex function below
     hideShowIndex($('#itemsTable tr').length);
 
     var socket = io.connect();
@@ -39,7 +40,6 @@ $(document).ready(function(){
     });
 
     $('#btnClearList').click(function() {
-      console.log("btnClearList was clicked");
       location.reload("True");
     });
 });
