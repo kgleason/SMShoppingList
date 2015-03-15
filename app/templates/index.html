@@ -2,22 +2,22 @@
 {% block content %}
 	<h3>The List</h3>
 	<hr/>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+		<table class="table" id="itemsTable" name="itemsTable">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Item</th>
+					<th>Requested By</th>
+					<th>Added</th>
+				</tr>
+			</thead>
+			<tbody>
 {% if not my_list %}
-	The list appears to be empty
+		<p class='emptyList'>The list appears to be empty</p>
 {% else %}
 <!--<script type='text/javascript' src="{{ url_for('static', filename='js/removeListItem.js') }}"></script>-->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/custom.js') }}"></script>
-	<table class="table" id="itemsTable" name="itemsTable">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Item</th>
-				<th>Requested By</th>
-				<th>Added</th>
-			</tr>
-		</thead>
-		<tbody>
 		{% for i in my_list %}
 			<tr>
 				<td><input type="checkbox" class="sync" name="{{ i.id }}" id="checkbox{{ i.id }}" value="{{ i.purchased }}"/></td>
@@ -26,8 +26,8 @@
 				<td>{{ i.created_in_words }} ago</td>
 			</tr>
 		{% endfor %}
-		</tbody>
-	</table>
-
 {% endif %}
+</tbody>
+</table>
+
 {% endblock %}
