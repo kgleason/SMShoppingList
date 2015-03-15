@@ -1,6 +1,6 @@
 from models import *
 from app import db
-import re
+import re, views
 from twilio.rest import TwilioRestClient
 from config import CONFIG
 
@@ -25,6 +25,12 @@ def process_sms(r):
         li = ListItem(list_item = text, created_by = person.id)
         db.session.add(li)
         db.session.commit()
+        new_row = { 'id': li.id,
+                    'checked': False,
+                    'creator': li.creator,
+                    'created': li.created_in_words,
+                    'item': li.list_item }
+        views.insert_row(new_row)
         return "Added \"{0}\" to the list. You can view the list at {1}".format(text, CONFIG['SHOPPING_LIST_URL'])
 
 def invite_new_user(inviter, txt):

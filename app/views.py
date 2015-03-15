@@ -5,6 +5,7 @@ from models import *
 from sms import process_sms
 import twilio.twiml
 from flask.ext.socketio import emit
+import json
 
 @app.route('/')
 def index():
@@ -58,3 +59,7 @@ def value_changed(message):
 def checkbox_changed(message):
     print(message)
     emit('update checkbox', message, broadcast=True)
+
+def insert_row(message):
+    print(json.dumps(message))
+    socketio.emit('insert row', json.dumps(message))

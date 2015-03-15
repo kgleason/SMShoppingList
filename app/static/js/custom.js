@@ -16,4 +16,16 @@ $(document).ready(function(){
       $('input#'+msg.who).prop("checked",(msg.data));
     });
 
+    socket.on('insert row', function(msg) {
+      var data = JSON.parse(msg)
+      var $html = '<tr>\
+        <td>\
+          <input type="checkbox" class="sync" name="' + data.id + '" id="checkbox' + data.id + '" value="' + data.checked + '"/>\
+        </td>\
+        <td>' + data.item + '</td>\
+        <td>' + data.creator + '</td>\
+        <td>' + data.created + '</td></tr>'
+      $('#itemsTable TBODY').append($html)
+    });
+
 });
