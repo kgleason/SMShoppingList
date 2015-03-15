@@ -3,8 +3,6 @@ $(document).ready(function(){
     // check the number of rows in the table. If it is more than 1, then show the table
     // otherwise hide it.
     hideShowIndex($('#itemsTable tr').length);
-    //var $rowCount = $('#itemsTable tr').length;
-    //$('#itemsTable').toggle($rowCount > 1);
 
     var socket = io.connect();
 
@@ -16,8 +14,6 @@ $(document).ready(function(){
     // Some special rules to deal with checkboxes
     $("input[type='checkbox'].sync").change(function() {
       socket.emit('checkbox changed', {who: $(this).attr('id'), data: $(this).is(':checked')});
-      var itemNumber = $(this).attr('name');
-      $.post("/listitem/" + itemNumber);
     });
 
     socket.on('update checkbox', function(msg) {
@@ -34,8 +30,6 @@ $(document).ready(function(){
         <td>' + data.creator + '</td>\
         <td>' + data.created + '</td></tr>';
       $('#itemsTable TBODY').append($html);
-      //$('#itemsTable').show();
-      //$('#emptyList').hide();
       hideShowIndex($('#itemsTable tr').length);
     });
 
@@ -46,6 +40,7 @@ $(document).ready(function(){
 
     $('#btnClearList').click(function() {
       console.log("btnClearList was clicked");
+      location.reload("True");
     });
 });
 

@@ -21,7 +21,7 @@
 {% else %}
 		{% for i in my_list %}
 			<tr>
-				<td><input type="checkbox" class="sync" name="{{ i.id }}" id="checkbox{{ i.id }}" value="{{ i.purchased }}"/></td>
+				<td><input type="checkbox" class="sync listChkBox" name="{{ i.id }}" id="checkbox{{ i.id }}" value="{{ i.purchased }}"/></td>
 				<td>{{ i.list_item }}</td>
 				<td>{{ i.creator }}</td>
 				<td>{{ i.created_in_words }} ago</td>
