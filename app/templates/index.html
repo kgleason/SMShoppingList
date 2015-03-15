@@ -17,7 +17,7 @@
 			</thead>
 			<tbody>
 {% if not my_list %}
-		<p class='emptyList'>The list appears to be empty</p>
+		<p id="emptyList" name="emptyList">The list appears to be empty</p>
 {% else %}
 <!--<script type='text/javascript' src="{{ url_for('static', filename='js/removeListItem.js') }}"></script>-->
 		{% for i in my_list %}
