@@ -1,7 +1,0 @@
-CONFIG = {
-    'DBURI' : 'sqlite:///app.db.sqlite3',
-    'TWILIO_ACCOUNT_SID' : '#################################',
-    'TWILIO_AUTH_TOKEN' : '################################',
-    'TWILIO_NUMBER' : '+1###-###-####',
-    'ADMIN_MOBILE_NUMBERS' : ['+1##########', '+1##########']
-}
