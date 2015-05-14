@@ -9,10 +9,15 @@ class Person(db.Model):
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     mobile = db.Column(db.String(12), unique=True)
+    isAdmin = db.Column(db.Boolean, default=False)
 
     @classmethod
     def all(cls):
         return Person.query.order_by(Person.lastname, Person.firstname).all()
+
+    @classmethod
+    def all_admins(cls):
+        return Person.query.filter(Person.isAdmin == True).all()
 
     @classmethod
     def find_by_mobile(cls, mobile):
