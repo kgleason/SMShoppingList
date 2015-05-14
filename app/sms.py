@@ -2,7 +2,6 @@ from models import *
 from app import db
 import re, views
 from twilio.rest import TwilioRestClient
-from config import CONFIG
 
 def process_sms(r):
     from_number = str(r.values.get('From', None))
@@ -17,7 +16,7 @@ def process_sms(r):
     words = text.split()
 
     if words[0].lower() == "#invite":
-        if from_number in CONFIG['ADMIN_MOBILE_NUMBERS']:
+        if from_number in Person.all_admins:
             return invite_new_user(inviter=person, txt=words[1:])
         else:
             return "You are not an admin. You are not allowed to invite new users."
@@ -31,7 +30,7 @@ def process_sms(r):
                     'created': li.created_in_words,
                     'item': li.list_item }
         views.insert_row(new_row)
-        return "Added \"{0}\" to the list. You can view the list at {1}".format(text, CONFIG['SHOPPING_LIST_URL'])
+        return "Added \"{0}\" to the list. You can view the list at {1}".format(text, os.environ.get('SHOPPING_LIST_URL'))
 
 def invite_new_user(inviter, txt):
     fname = txt[0]
@@ -50,7 +49,7 @@ def invite_new_user(inviter, txt):
         db.session.commit()
 
         send_sms(person=newb, msg="Please save me in your contacts as Shopping List. If you text things to me, I will add them to the shopping list.")
-        send_sms(person=newb, msg="You can view the current shopping list at {0}".format(CONFIG['SHOPPING_LIST_URL']))
+        send_sms(person=newb, msg="You can view the current shopping list at {0}".format(os.environ.get('SHOPPING_LIST_URL')))
         return "Successfully added {0}".format(newb.display_name)
     else:
         return "{0} already exists with mobile number {1}".format(newb.display_name, newb.mobile)
@@ -58,7 +57,7 @@ def invite_new_user(inviter, txt):
 def send_sms(person, msg):
 
     try:
-        client = TwilioRestClient(CONFIG['TWILIO_ACCOUNT_SID'], CONFIG['TWILIO_AUTH_TOKEN'])
-        output = client.messages.create(to=person.mobile, from_=CONFIG['TWILIO_NUMBER'],body=msg)
+        client = TwilioRestClient(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+        output = client.messages.create(to=person.mobile, from_=os.environ.get('TWILIO_NUMBER'),body=msg)
     except Exception, e:
         print "Unable to send SMS to {0} because {1}".format(person.mobile,e)
