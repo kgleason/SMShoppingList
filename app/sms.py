@@ -1,6 +1,6 @@
 from models import *
 from app import db
-import re, views
+import os, re, views
 from twilio.rest import TwilioRestClient
 
 def process_sms(r):
