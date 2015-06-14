@@ -16,7 +16,7 @@ def process_sms(r):
     words = text.split()
 
     if words[0].lower() == "#invite":
-        if from_number in Person.all_admins:
+        if from_number in Person.all_admins():
             return invite_new_user(inviter=person, txt=words[1:])
         else:
             return "You are not an admin. You are not allowed to invite new users."
