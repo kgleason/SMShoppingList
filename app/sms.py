@@ -19,7 +19,7 @@ def process_sms(r):
         if from_number in Person.all_admins():
             return invite_new_user(inviter=person, txt=words[1:])
         else:
-            return "You are not an admin. You are not allowed to invite new users."
+            return "{0} You are not an admin. You are not allowed to invite new users.".format(from_number)
     else:
         li = ListItem(list_item = text, created_by = person.id)
         db.session.add(li)
