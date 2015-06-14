@@ -5,7 +5,7 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
-	socketio.run(app)
+	socketio.run(app, transports='websocket, xhr-polling, xhr-multipart')
 
 app.debug = True
 
