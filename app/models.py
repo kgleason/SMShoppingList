@@ -20,6 +20,10 @@ class Person(db.Model):
         return Person.query.filter(Person.isAdmin == True).all()
 
     @classmethod
+    def all_admin_phones(cls):
+        return Person.query.with_entities(Person.mobile).filter(Person.isAdmin == True).all()
+
+    @classmethod
     def find_by_mobile(cls, mobile):
         return Person.query.filter(Person.mobile == mobile).first()
 
