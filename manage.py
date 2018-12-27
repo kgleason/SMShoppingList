@@ -3,6 +3,7 @@ from flask.ext.migrate import MigrateCommand
 
 manager.add_command('db', MigrateCommand)
 
+
 @manager.command
 def run():
 	socketio.run(app, transports='websocket, xhr-polling, xhr-multipart')

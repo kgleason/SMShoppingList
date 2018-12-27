@@ -1,7 +1,9 @@
-from models import *
+from app.models import Person, ListItem
 from app import db
-import os, re, views
+from app import views
+import os, re
 from twilio.rest import TwilioRestClient
+
 
 def process_sms(r):
     from_number = str(r.values.get('From', None))
@@ -32,6 +34,7 @@ def process_sms(r):
         views.insert_row(new_row)
         return "Added \"{0}\" to the list. You can view the list at {1}".format(text, os.environ.get('SHOPPING_LIST_URL'))
 
+
 def invite_new_user(inviter, txt):
     fname = txt[0]
     lname = txt[1]
@@ -54,10 +57,11 @@ def invite_new_user(inviter, txt):
     else:
         return "{0} already exists with mobile number {1}".format(newb.display_name, newb.mobile)
 
+
 def send_sms(person, msg):
 
     try:
         client = TwilioRestClient(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
         output = client.messages.create(to=person.mobile, from_=os.environ.get('TWILIO_NUMBER'),body=msg)
-    except Exception, e:
-        print "Unable to send SMS to {0} because {1}".format(person.mobile,e)
+    except Exception as exc:
+        print("Unable to send SMS to {0} because {1}".format(person.mobile,exc))

@@ -3,6 +3,7 @@ from sqlalchemy import desc
 import datetime, re
 from webhelpers.date import time_ago_in_words
 
+
 class Person(db.Model):
     __tablename__ = 'person'
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +34,7 @@ class Person(db.Model):
             return self.firstname
         else:
             return self.mobile
+
 
 class ListItem(db.Model):
     __tablename__ = 'list_item'
