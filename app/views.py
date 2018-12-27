@@ -2,8 +2,8 @@ import os
 from flask import render_template, request
 from app import app, socketio
 from app.models import ListItem, Person, desc, db
-from sms import process_sms
-import twilio.twiml
+from app.sms import process_sms
+from twilio.twiml.messaging_response import MessagingResponse
 from flask_socketio import emit
 import json, re
 
@@ -39,7 +39,8 @@ def sms():
     else:
         message = "Sorry, but HTTP {0} is not currently allowed.".format(request.method)
 
-    resp = twilio.twiml.Response()
+
+    resp = MessagingResponse()
     resp.message(message)
     return str(resp)
 

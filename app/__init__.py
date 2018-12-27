@@ -12,9 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 socketio = SocketIO(app)
 
-db = SQLAlchemy()
-db.app = app
-db.init_app(app)
+db = SQLAlchemy(app=app)
 
 migrate = Migrate(app, db)
 manager = Manager(app)

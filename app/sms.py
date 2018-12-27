@@ -2,7 +2,7 @@ from app.models import Person, ListItem
 from app import db
 from app import views
 import os, re
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 
 def process_sms(r):
@@ -61,7 +61,7 @@ def invite_new_user(inviter, txt):
 def send_sms(person, msg):
 
     try:
-        client = TwilioRestClient(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-        output = client.messages.create(to=person.mobile, from_=os.environ.get('TWILIO_NUMBER'),body=msg)
+        client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+        client.messages.create(to=person.mobile, from_=os.environ.get('TWILIO_NUMBER'),body=msg)
     except Exception as exc:
         print("Unable to send SMS to {0} because {1}".format(person.mobile,exc))
