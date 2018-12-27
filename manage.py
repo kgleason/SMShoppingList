@@ -1,5 +1,5 @@
 from app import app, manager, socketio
-from flask.ext.migrate import MigrateCommand
+from flask_migrate import MigrateCommand
 
 manager.add_command('db', MigrateCommand)
 

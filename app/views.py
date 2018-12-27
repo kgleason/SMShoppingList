@@ -4,7 +4,7 @@ from app import app, socketio
 from app.models import ListItem, Person, desc, db
 from sms import process_sms
 import twilio.twiml
-from flask.ext.socketio import emit
+from flask_socketio import emit
 import json, re
 
 
