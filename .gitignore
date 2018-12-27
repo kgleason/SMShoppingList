@@ -63,3 +63,6 @@ config.py
 
 *.config
 pip-selfcheck.json
+
+# VSCode detrius
+.vscode/
