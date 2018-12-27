@@ -1,8 +1,8 @@
-#SMS Shopping List
+# SMS Shopping List
 
 This app is to allow my family, who seem to prefer to send text messages with shopping items, to text them to a place where they will be stored and displayed in a sensible format. Try going to the grocery store sometime with a shopping list split across 3 different text conversations. Not fun.
 
-##Getting started.
+## Getting started.
 
 In order to use this app, you'll need a Twilio account and a Heroku account. You don't technically need to use Heroku, but this document will assume that you are. Heroku has documentation to help you get this app deployed. You can connect Heroku into git, but before you deploy it, you'll need to set the following config variables:
 
