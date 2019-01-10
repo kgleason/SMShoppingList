@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     // the socket.io documentation recommends sending an explicit package upon connection
     socket.on('connect', function() {
-        socket.emit('connect', {data: 'I\'m connected!'});
+        //socket.emit('connect', {data: 'I\'m connected!'});
     });
 
     // Some special rules to deal with checkboxes
