@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace('post
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 socketio = SocketIO(app)
+socketio.init_app(app, cors_allowed_origins="*")
 
 migrate = Migrate()
 
