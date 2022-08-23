@@ -1,7 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
+from flask.cli import FlaskGroup
 from flask_migrate import Migrate
+#from app import app
+from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
 import os
 
@@ -13,9 +14,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 socketio = SocketIO(app)
 
+migrate = Migrate()
+
 db = SQLAlchemy(app=app)
 
-migrate = Migrate(app, db)
-manager = Manager(app)
+cli = FlaskGroup(app)
+
+migrate.init_app(app, db)
+
 
 from app import models, views

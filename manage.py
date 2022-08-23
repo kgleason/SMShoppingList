@@ -1,14 +1,12 @@
+from pydoc import cli
 from app import app, manager, socketio
-from flask_migrate import MigrateCommand
-
-manager.add_command('db', MigrateCommand)
 
 
-@manager.command
+@cli.command
 def run():
 	socketio.run(app, transports='websocket, xhr-polling, xhr-multipart')
 
 app.debug = True
 
-if __name__ == '__main__':
-  manager.run()
+if __name__ == "__main__":
+    cli()
