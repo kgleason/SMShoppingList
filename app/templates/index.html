@@ -2,7 +2,7 @@
 {% block content %}
 	<h3>The List</h3>
 	<hr/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/custom.js') }}"></script>
 	<!-- create the table before the loop so that there is an mepty hidden table when there are no items in the list.
 	This allows the web socket to insert a new row. Otherwise the table doesn't exist. -->
